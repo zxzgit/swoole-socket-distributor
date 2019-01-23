@@ -1,6 +1,6 @@
 <?php
 
-namespace zxzgit\swd\libs;
+namespace zxzgit\ssd\libs;
 
 
 class MessageHandler

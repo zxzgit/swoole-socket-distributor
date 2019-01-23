@@ -6,9 +6,9 @@
  * Time: 下午12:49
  */
 
-namespace zxzgit\swd\test\modules\test\modules\test;
+namespace zxzgit\ssd\test\modules\test\modules\test;
 
 
-class MessageModule extends \zxzgit\swd\libs\MessageModule{
+class MessageModule extends \zxzgit\ssd\libs\MessageModule{
 
 }

@@ -5,7 +5,7 @@
  * Datetime: 2018/11/19 12:21
  */
 
-namespace zxzgit\swd\test\service;
+namespace zxzgit\ssd\test\service;
 
 
 class BaseService {

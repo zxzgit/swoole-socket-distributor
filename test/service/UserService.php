@@ -5,11 +5,11 @@
  * Datetime: 2018/11/19 12:21
  */
 
-namespace zxzgit\swd\test\service;
+namespace zxzgit\ssd\test\service;
 
 
-use zxzgit\swd\test\libs\RedisKeyDict;
-use zxzgit\swd\WebSocketApp;
+use zxzgit\ssd\test\libs\RedisKeyDict;
+use zxzgit\ssd\WebSocketApp;
 
 class UserService extends BaseService {
     /**

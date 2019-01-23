@@ -6,11 +6,11 @@
  * Time: 下午12:49
  */
 
-namespace zxzgit\swd\test\modules\test;
+namespace zxzgit\ssd\test\modules\test;
 
 
-class MessageModule extends \zxzgit\swd\libs\MessageModule{
+class MessageModule extends \zxzgit\ssd\libs\MessageModule{
     public $moduleList = [
-        'subtest' => \zxzgit\swd\test\modules\test\modules\test\MessageModule::class,
+        'subtest' => \zxzgit\ssd\test\modules\test\modules\test\MessageModule::class,
     ];
 }

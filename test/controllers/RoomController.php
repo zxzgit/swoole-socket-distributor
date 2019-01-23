@@ -5,11 +5,11 @@
  * Datetime: 2018/11/15 18:23
  */
 
-namespace zxzgit\swd\test\controllers;
+namespace zxzgit\ssd\test\controllers;
 
-use zxzgit\swd\test\libs\RedisKeyDict;
-use zxzgit\swd\test\service\RoomService;
-use zxzgit\swd\test\service\UserService;
+use zxzgit\ssd\test\libs\RedisKeyDict;
+use zxzgit\ssd\test\service\RoomService;
+use zxzgit\ssd\test\service\UserService;
 
 class RoomController extends BaseController {
     public $authActionList = ['interRoom'];

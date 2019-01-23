@@ -6,10 +6,10 @@
  * Time: 下午10:02
  */
 
-namespace zxzgit\swd;
+namespace zxzgit\ssd;
 
 
-use zxzgit\swd\libs\ConnectHandler;
+use zxzgit\ssd\libs\ConnectHandler;
 
 class WebSocketApp
 {

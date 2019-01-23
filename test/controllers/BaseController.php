@@ -5,12 +5,12 @@
  * Datetime: 2018/11/15 18:25
  */
 
-namespace zxzgit\swd\test\controllers;
+namespace zxzgit\ssd\test\controllers;
 
-use zxzgit\swd\test\MessageDistributor;
-use zxzgit\swd\test\service\UserService;
+use zxzgit\ssd\test\MessageDistributor;
+use zxzgit\ssd\test\service\UserService;
 
-class BaseController extends \zxzgit\swd\libs\AbstractController {
+class BaseController extends \zxzgit\ssd\libs\AbstractController {
     public $authActionList = [];
 
     protected $isLoginUser = null;

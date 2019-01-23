@@ -5,7 +5,7 @@
  * Datetime: 2018/11/16 16:32
  */
 
-namespace zxzgit\swd\libs;
+namespace zxzgit\ssd\libs;
 
 
 class MessageDistributor{

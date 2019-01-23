@@ -1,6 +1,6 @@
 <?php
 
-namespace zxzgit\swd\test\libs;
+namespace zxzgit\ssd\test\libs;
 
 class RedisKeyDict {
     const KEY_PREFIX = 'rsc:';

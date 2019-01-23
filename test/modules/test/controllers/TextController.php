@@ -5,9 +5,9 @@
  * Datetime: 2018/11/15 18:23
  */
 
-namespace zxzgit\swd\test\modules\test\controllers;
+namespace zxzgit\ssd\test\modules\test\controllers;
 
-use zxzgit\swd\test\controllers\BaseController;
+use zxzgit\ssd\test\controllers\BaseController;
 
 class TextController extends BaseController {
     

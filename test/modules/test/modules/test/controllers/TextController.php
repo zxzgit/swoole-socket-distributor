@@ -5,11 +5,11 @@
  * Datetime: 2018/11/15 18:23
  */
 
-namespace zxzgit\swd\test\modules\test\modules\test\controllers;
+namespace zxzgit\ssd\test\modules\test\modules\test\controllers;
 
-use zxzgit\swd\test\controllers\BaseController;
-use zxzgit\swd\test\libs\RedisKeyDict;
-use zxzgit\swd\test\service\UserService;
+use zxzgit\ssd\test\controllers\BaseController;
+use zxzgit\ssd\test\libs\RedisKeyDict;
+use zxzgit\ssd\test\service\UserService;
 
 class TextController extends BaseController {
     public $authActionList = ['forRoom'];

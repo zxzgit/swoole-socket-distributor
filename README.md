@@ -1,5 +1,5 @@
-# swoole-websocket-distributor
-基于 swoole 的 WebSocket\Server 内容分发，可以将接受的信息分发到模块和控制器。
+# swoole-socket-distributor
+基于 swoole 的 Swoole\Server 内容分发，可以将接受的信息分发到模块和控制器。
 
 #基本用法
  
@@ -23,7 +23,7 @@
 testapp/public/indexTest.php
 ```
 //#`php indexTest.php` to start a websocket server
-\zxzgit\swd\zxzgit\WebSocketApp::run([
+\zxzgit\ssd\zxzgit\WebSocketApp::run([
     //'serverBind' => '0.0.0.0',//default 0.0.0.0
     //'serverPort' => '9502',//default serverPort
     'moduleList' => [
@@ -56,7 +56,7 @@ testapp/public/indexTest.php
 testapp/controllers/IndexController.php
 
 ```
-class IndexController extends \zxzgit\swd\libs\AbstractController {
+class IndexController extends \zxzgit\ssd\libs\AbstractController {
     //clien send json data {"route":"index/index","data":{"key1":"value1"}} can route to this action method
     public function actionIndex(){
         return $this->pushMsg(['hello', 'world']);
@@ -67,9 +67,9 @@ class IndexController extends \zxzgit\swd\libs\AbstractController {
 testapp/MessageDistributor.php
 
 ```
-class MessageDistributor extends \zxzgit\swd\libs\MessageDistributor{
+class MessageDistributor extends \zxzgit\ssd\libs\MessageDistributor{
     public $moduleList = [
-        //'test' => \zxzgit\swd\test\modules\test\MessageModule::class,
+        //'test' => \zxzgit\ssd\test\modules\test\MessageModule::class,
     ];
 }
 ```
@@ -77,6 +77,6 @@ class MessageDistributor extends \zxzgit\swd\libs\MessageDistributor{
 testapp/modules/test/MessageModule.php
 
 ```
-class MessageModule extends \zxzgit\swd\libs\MessageModule{}
+class MessageModule extends \zxzgit\ssd\libs\MessageModule{}
 ```
 

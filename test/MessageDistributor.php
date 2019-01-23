@@ -5,12 +5,12 @@
  * Datetime: 2018/11/16 16:32
  */
 
-namespace zxzgit\swd\test;
+namespace zxzgit\ssd\test;
 
 
-class MessageDistributor extends \zxzgit\swd\libs\MessageDistributor {
+class MessageDistributor extends \zxzgit\ssd\libs\MessageDistributor {
     public $moduleList = [
-        //'test' => \zxzgit\swd\test\modules\test\MessageModule::class,
+        //'test' => \zxzgit\ssd\test\modules\test\MessageModule::class,
     ];
 
 }

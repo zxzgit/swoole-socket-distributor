@@ -14,13 +14,13 @@ include is_file($autoloadFile) ? $autoloadFile : $projectComposerAutoloadFile;
 
 
 //run app
-\zxzgit\swd\WebSocketApp::run([
+\zxzgit\ssd\WebSocketApp::run([
     'debugOn' => true,
     'isDoFork' => true,
     'moduleList' => [
-        'test' => \zxzgit\swd\test\modules\test\MessageModule::class,
+        'test' => \zxzgit\ssd\test\modules\test\MessageModule::class,
     ],
-    'messageDistributor' => \zxzgit\swd\test\MessageDistributor::class,
+    'messageDistributor' => \zxzgit\ssd\test\MessageDistributor::class,
 
     'event' => [
         'connect' =>function($server, $fd){

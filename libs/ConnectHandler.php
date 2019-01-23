@@ -4,11 +4,11 @@
  * User: zxz
  * Datetime: 2018/11/15 18:03
  *
-    \zxzgit\swd\WebSocketApp::run([
+    \zxzgit\ssd\WebSocketApp::run([
         'moduleList' => [
-            'test' => \zxzgit\swd\test\modules\test\MessageModule::class,
+            'test' => \zxzgit\ssd\test\modules\test\MessageModule::class,
          ],
-        'messageDistributor' => \zxzgit\swd\test\MessageDistributor::class,
+        'messageDistributor' => \zxzgit\ssd\test\MessageDistributor::class,
         'event' => [
                 'initConnector' => function () {},
                 'start'         => function (&$server) {},
@@ -22,7 +22,7 @@
     ]);
  */
 
-namespace zxzgit\swd\libs;
+namespace zxzgit\ssd\libs;
 
 
 class ConnectHandler
@@ -30,7 +30,10 @@ class ConnectHandler
     /**
      * @var string process title
      */
-    public $processTitle = 'php-zxzgit-swd-server';
+    public $processTitle = 'php-zxzgit-ssd-server';
+    public $processTitleMainProcessSuffix = '-- master';
+    public $processTitleSwooleMasterSuffix = '-- swoole worker master';
+    public $processTitleSwooleWorkSuffix = '-- swoole worker';
 
     /**
      * 路由解析函数映射
@@ -96,7 +99,7 @@ class ConnectHandler
     /**
      * @var array 模块设置
      * $moduleList = [
-     *    'test'   => \zxzgit\swd\test\modules\test\MessageModule::class,
+     *    'test'   => \zxzgit\ssd\test\modules\test\MessageModule::class,
      *    '模块名称' => '模块类名',
      * ]
      */
@@ -114,7 +117,7 @@ class ConnectHandler
 
     /**
      * @var MessageDistributor 内容分发器
-     * 'messageDistributor' => \zxzgit\swd\test\MessageDistributor::class,
+     * 'messageDistributor' => \zxzgit\ssd\test\MessageDistributor::class,
      */
     public $messageDistributor;
 
@@ -145,6 +148,7 @@ class ConnectHandler
      * @var string
      */
     private $startEventName   = 'start';
+    private $workerStartName  = 'workerStart';
 
     /**
      * websocke 服务bind
@@ -206,7 +210,7 @@ class ConnectHandler
 
         $this->debugAddDefaultHandler();
 
-        $this->processTitleSet($this->processTitle);
+        $this->processTitleSet($this->processTitle . $this->processTitleMainProcessSuffix);
     }
 
     /**
@@ -267,6 +271,7 @@ class ConnectHandler
      */
     private function initServerEvent() {
         !isset($this->event[$this->startEventName]) && $this->event[$this->startEventName] = function () { };
+        !isset($this->event[$this->workerStartName]) && $this->event[$this->workerStartName] = function () { };
         //事件设置
         foreach ($this->event as $eventName => $eventFn) {
             $this->server->on($eventName, function () use ($eventName) {
@@ -286,10 +291,14 @@ class ConnectHandler
                         MessageHandler::msgDeal($this, $frame, $this->isDoFork);
                         break;
                     case $this->startEventName:
+                        $this->processTitleSet($this->processTitle . $this->processTitleSwooleMasterSuffix);
                         //启动信息提示
                         $this->debugConsoleOutput('server start success.');
                         $this->debugConsoleOutput('server setting info:');
                         $this->debugConsoleOutput(json_encode($this->server->setting, JSON_PRETTY_PRINT));
+                        break;
+                    case $this->workerStartName:
+                        $this->processTitleSet($this->processTitle . $this->processTitleSwooleWorkSuffix);
                         break;
                     default:
                         break;
@@ -371,6 +380,6 @@ class ConnectHandler
     protected function runConnectHandlerOutputInfo()
     {
         $this->debugConsoleOutput('process-pid   : ' . posix_getpid());
-        $this->debugConsoleOutput('process-title : ' . $this->processTitle);
+        $this->debugConsoleOutput('process-title prefix : ' . $this->processTitle);
     }
 }

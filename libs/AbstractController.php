@@ -5,7 +5,7 @@
  * Datetime: 2018/11/15 18:25
  */
 
-namespace zxzgit\swd\libs;
+namespace zxzgit\ssd\libs;
 
 
 abstract class AbstractController {

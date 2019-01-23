@@ -6,7 +6,7 @@
  * Time: 下午12:48
  */
 
-namespace zxzgit\swd\libs;
+namespace zxzgit\ssd\libs;
 
 
 class MessageModule
