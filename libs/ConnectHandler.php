@@ -31,8 +31,20 @@ class ConnectHandler
      * @var string process title
      */
     public $processTitle = 'php-zxzgit-ssd-server';
-    public $processTitleMainProcessSuffix = '-- master';
+    
+    /**
+     * @var string 主进程process title后缀
+     */
+    public $processTitleMainProcessSuffix = '-- master for swoole';
+    
+    /**
+     * @var string swoole server 主进程process title后缀
+     */
     public $processTitleSwooleMasterSuffix = '-- swoole worker master';
+    
+    /**
+     * @var string swoole server 子worker进程process title后缀
+     */
     public $processTitleSwooleWorkSuffix = '-- swoole worker';
 
     /**
@@ -76,10 +88,16 @@ class ConnectHandler
     public $debugOn  = false;
 
     /**
-     * debug 输出方式
+     * debug 输出方式,默认为$debugMethodForConsoleOutput 属性
      * @var string
      */
-    public $debugMethod  = 'print_r';
+    public $debugMethod;
+    
+    /**
+     * 控制台输出debug方法
+     * @var string
+     */
+    private $debugMethodForConsoleOutput  = 'print_r';
 
     /**
      * debug输出方法
@@ -148,6 +166,10 @@ class ConnectHandler
      * @var string
      */
     private $startEventName   = 'start';
+    
+    /**
+     * @var string swoole worder start event name
+     */
     private $workerStartName  = 'workerStart';
 
     /**
@@ -199,7 +221,11 @@ class ConnectHandler
     protected function init(array $config = [])
     {
         foreach ($config as $index => $item) {
-            property_exists($this, $index) && ($this->$index = $item);
+            property_exists($this, $index)
+            &&
+            (new \ReflectionProperty(__CLASS__, $index))->isPublic()
+            &&
+            ($this->$index = $item);
         }
 
         $this->checkProperty();
@@ -340,7 +366,8 @@ class ConnectHandler
      * 添加默认调试处理
      */
     public function debugAddDefaultHandler(){
-        $this->debugMethodHandler['print_r'] = function ($msg) {
+        $this->debugMethod = $this->debugMethod ?: $this->debugMethodForConsoleOutput;
+        $this->debugMethodHandler[$this->debugMethodForConsoleOutput] = function ($msg) {
             print_r(PHP_EOL);
             print_r($msg);
             print_r(PHP_EOL);
@@ -363,7 +390,7 @@ class ConnectHandler
      */
     public function debugConsoleOutput($msg)
     {
-        call_user_func($this->debugMethodHandler['print_r'], $msg);
+        call_user_func($this->debugMethodHandler[$this->debugMethodForConsoleOutput], $msg);
     }
 
     /**
