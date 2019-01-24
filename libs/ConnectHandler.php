@@ -296,20 +296,44 @@ class ConnectHandler
      * @param $directive
      */
     private function directiveDeal($directive) {
+        //fixme 进程控制不好，现在先这样控制，想用信号量处理总是不成功
         switch ($directive) {
             case self::DIRECTIVE_START:
                 break;
             case self::DIRECTIVE_STOP:
-                $pid = @file_get_contents($this->pidFile);
+                $pid = $this->getPidFileContent();
                 $pid && exec("kill $pid", $str_res, $str_r);
+                $this->setPidFileContent('');
                 exit;
                 break;
             case self::DIRECTIVE_RELOAD:
-                $pid = @file_get_contents($this->pidFile);
+                $pid = $this->getPidFileContent();
                 $pid && exec("kill $pid", $str_res, $str_r);
+                echo PHP_EOL . "Restarting...." . PHP_EOL;
+                sleep(1);//由于进程没有马上结束,端口没有马上释放，会无法重启，暂时先这样处理
                 break;
             default:
                 exit('directive error,directive option: [start|stop|reload]');
+        }
+    }
+    
+    /**
+     * @param int|string $pid 进程id
+     */
+    private function setPidFileContent($pid) {
+        file_put_contents($this->pidFile, $pid);
+    }
+    
+    /**
+     * 获取pid记录文件内容
+     * @return bool|string
+     */
+    private function getPidFileContent() {
+        if (file_exists($this->pidFile)) {
+            return file_get_contents($this->pidFile);
+        } else {
+            $this->debugConsoleOutput("pid file : {$this->pidFile},no exist");
+            exit();
         }
     }
 
@@ -353,7 +377,7 @@ class ConnectHandler
                         MessageHandler::msgDeal($this, $frame, $this->isDoFork);
                         break;
                     case $this->startEventName:
-                        file_put_contents($this->pidFile, posix_getpid());
+                        $this->setPidFileContent(posix_getpid());
                         $this->processTitleSet($this->processTitle . $this->processTitleSwooleMasterSuffix);
                         //启动信息提示
                         $this->debugConsoleOutput('server start success.');
