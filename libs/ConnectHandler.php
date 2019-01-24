@@ -467,7 +467,6 @@ class ConnectHandler
      */
     protected function runConnectHandlerOutputInfo()
     {
-        $this->debugConsoleOutput('process-pid   : ' . posix_getpid());
         $this->debugConsoleOutput('process-title prefix : ' . $this->processTitle);
     }
 }
