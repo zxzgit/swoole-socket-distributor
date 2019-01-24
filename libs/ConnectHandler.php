@@ -28,6 +28,18 @@ namespace zxzgit\ssd\libs;
 class ConnectHandler
 {
     /**
+     * 指令
+     */
+    const DIRECTIVE_START  = 'start';
+    const DIRECTIVE_STOP   = 'stop';
+    const DIRECTIVE_RELOAD = 'reload';
+    
+    /**
+     * @var string 记录swoole server的pid文件
+     */
+    public $pidFile = __DIR__ . '/../logs/process.pid';
+    
+    /**
      * @var string process title
      */
     public $processTitle = 'php-zxzgit-ssd-server';
@@ -266,8 +278,10 @@ class ConnectHandler
     /**
      * 执行服务
      */
-    public function run()
+    public function run($directive = self::DIRECTIVE_START)
     {
+        $this->directiveDeal($directive);
+        
         $this->runConnectHandlerOutputInfo();
 
         $this->initServer();
@@ -275,6 +289,28 @@ class ConnectHandler
         $this->triggerEvent('initConnector', [&$this]);
 
         $this->server->start();
+    }
+    
+    /**
+     * 指令处理
+     * @param $directive
+     */
+    private function directiveDeal($directive) {
+        switch ($directive) {
+            case self::DIRECTIVE_START:
+                break;
+            case self::DIRECTIVE_STOP:
+                $pid = @file_get_contents($this->pidFile);
+                $pid && exec("kill $pid", $str_res, $str_r);
+                exit;
+                break;
+            case self::DIRECTIVE_RELOAD:
+                $pid = @file_get_contents($this->pidFile);
+                $pid && exec("kill $pid", $str_res, $str_r);
+                break;
+            default:
+                exit('directive error,directive option: [start|stop|reload]');
+        }
     }
 
     /**
@@ -317,6 +353,7 @@ class ConnectHandler
                         MessageHandler::msgDeal($this, $frame, $this->isDoFork);
                         break;
                     case $this->startEventName:
+                        file_put_contents($this->pidFile, posix_getpid());
                         $this->processTitleSet($this->processTitle . $this->processTitleSwooleMasterSuffix);
                         //启动信息提示
                         $this->debugConsoleOutput('server start success.');

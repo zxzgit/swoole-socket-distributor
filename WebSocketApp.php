@@ -18,10 +18,10 @@ class WebSocketApp
      * @var ConnectHandler $connector
      */
     static $connector;
-
-    public static function run(array $config = [])
+    
+    public static function run($directive = ConnectHandler::DIRECTIVE_START, array $config = [])
     {
         self::$connector = new ConnectHandler($config);
-        self::$connector->run();
+        self::$connector->run($directive);
     }
 }

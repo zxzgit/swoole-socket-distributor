@@ -12,9 +12,14 @@ if(!is_file($autoloadFile) && !is_file($projectComposerAutoloadFile)){
 
 include is_file($autoloadFile) ? $autoloadFile : $projectComposerAutoloadFile;
 
+use zxzgit\ssd\libs\ConnectHandler;
+
+
+$directive = isset($argv[1]) ? $argv[1] : ConnectHandler::DIRECTIVE_START;
+
 
 //run app
-\zxzgit\ssd\WebSocketApp::run([
+\zxzgit\ssd\WebSocketApp::run($directive,[
     'debugOn' => true,
     'isDoFork' => true,
     'moduleList' => [
@@ -33,6 +38,9 @@ include is_file($autoloadFile) ? $autoloadFile : $projectComposerAutoloadFile;
         'close' => function($server, $fd){
             echo "Client: Close."  . $fd  . PHP_EOL;
         }
+    ],
+    'serverSetConfig'=>[
+        'daemonize' => 1
     ],
 
     /*
