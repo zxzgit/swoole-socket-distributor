@@ -1,5 +1,5 @@
 {
-    "name": "zxzgit/swoole-websocket-distributor",
+    "name": "zxzgit/swoole-socket-distributor",
     "type": "extension",
     "authors": [
         {
