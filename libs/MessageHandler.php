@@ -43,7 +43,7 @@ class MessageHandler
     {
         try {
             //信息处理
-            $connector->debugOn && $connector->debugOutput(implode(PHP_EOL, [
+            $connector->debugOn && $connector->debugConsoleOutput(implode(PHP_EOL, [
                 "链接{$frame->fd}-当前内存使用量：" . memory_get_usage(true) . " byte",
                 "链接{$frame->fd}-当前子进程pid：" . posix_getpid(),
                 "链接{$frame->fd}-收到的信息: {$frame->data}",
@@ -58,8 +58,10 @@ class MessageHandler
             //发送信息后事件处理
             $connector->triggerEvent('afterMessage', [&$connector->server, &$frame]);
         } catch (\Exception $exception) {
-            throw  $exception;
-            //$connector->debugOutput("信息分发错误，错误信息：" . $exception->getMessage() . PHP_EOL);
+            //throw  $exception;
+            $errorMessage = "信息分发错误，错误信息：" . $exception->getMessage() . PHP_EOL;
+            $connector->debugOn && $connector->debugConsoleOutput($errorMessage);
+            $connector->debugOutput($errorMessage);
         }
     }
 }
