@@ -30,7 +30,7 @@ class RoomController extends BaseController {
                             $fd != $this->frame->fd && $this->pushMsg([
                                 'content' => $this->getUser()['name'] . '进入房间',
                                 'fromUser' => '',
-                            ], 200, $fd, '', ['event' => 'notifyUserInterRoom']);
+                            ], $this->frame->fd, 200, $fd, '', ['event' => 'notifyUserInterRoom']);
                         } else {
                             RoomService::removeDisconnectFdFromRoom($fd, $roomId);
                         }
@@ -43,7 +43,7 @@ class RoomController extends BaseController {
             
             return $this->pushMsg(['content' => 'you inter room event already to notify roommate']);
         } else {
-            return $this->pushMsg(['msg' => 'not get RoomId'],400);
+            return $this->pushMsg(['msg' => 'not get RoomId'], $this->frame->fd,400);
         }
     }
 }

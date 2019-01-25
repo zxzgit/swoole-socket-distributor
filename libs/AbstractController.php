@@ -115,7 +115,7 @@ abstract class AbstractController {
      * @return bool
      * @throws \Exception
      */
-    public function pushMsg($data = [], $code = 200, $fd = null, $msg = '', $rpData = [], $isThrowException = false, $serverSocket = -1) {
+    public function pushMsg($data = [], $fd = null, $code = 200, $msg = '', $rpData = [], $isThrowException = false, $serverSocket = -1) {
         $returnInfo = [
             'code' => $code,
             'data' => $data,

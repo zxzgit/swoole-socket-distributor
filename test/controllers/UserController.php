@@ -18,7 +18,7 @@ class UserController extends BaseController {
             unset($userInfo['token_expire']);
             return $this->pushMsg($userInfo);
         }
-        return $this->pushMsg(['msg' => '登陆失败'], 401);
+        return $this->pushMsg(['msg' => '登陆失败'], $this->frame->fd, 401);
     }
     
     /**
@@ -34,14 +34,14 @@ class UserController extends BaseController {
      */
     public function actionRefreshToken(){
         if (!$this->checkUserLogin()) {
-            return $this->pushMsg(['type' => 'noLogin'], 403);
+            return $this->pushMsg(['type' => 'noLogin'], $this->frame->fd, 403);
         }
 
         //刷新token
         if (UserService::refreshToken($this->user)) {
-            return $this->pushMsg($this->user, 200);
+            return $this->pushMsg($this->user, $this->frame->fd, 200);
         } else {
-            return $this->pushMsg([], 500);
+            return $this->pushMsg([], $this->frame->fd, 500);
         }
     }
 }

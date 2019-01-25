@@ -24,7 +24,7 @@ class BaseController extends \zxzgit\ssd\libs\AbstractController {
                     'preRequestInfo' => $this->parsedMsgData,
                     'type' => 'noLogin',
                 ];
-                $this->pushMsg($returnData, 403);
+                $this->pushMsg($returnData, $this->frame->fd, 403);
                 return false;
             }
 
@@ -33,7 +33,7 @@ class BaseController extends \zxzgit\ssd\libs\AbstractController {
                     'preRequestInfo' => $this->parsedMsgData,
                     'type' => 'refreshToken',
                 ];
-                $this->pushMsg($returnData, 403);
+                $this->pushMsg($returnData, $this->frame->fd, 403);
                 return false;
             }
 

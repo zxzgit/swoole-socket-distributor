@@ -37,9 +37,9 @@ class TextController extends BaseController {
                 }
             }
 
-            return $this->pushMsg([], 200, $this->frame->fd, 'success');
+            return $this->pushMsg([], $this->frame->fd, 200, $this->frame->fd, 'success');
         } else {
-            return $this->pushMsg([], 400, $this->frame->fd, 'miss roomId');
+            return $this->pushMsg([], $this->frame->fd, 400, $this->frame->fd, 'miss roomId');
         }
     }
 }
